@@ -8,7 +8,7 @@ Ancillary data for the paper:
 
 ## Overview
 
-In the effective field theory (EFT) description of compact binary inspirals, the radiated gravitational waveform receives universal corrections from the gravitational background — the so-called "tail" effects — that resum into the Sommerfeld factor. This repository provides the perturbative data for the gravitational Sommerfeld enhancement factor for scalar perturbations of a Schwarzschild black hole, computed to $\mathcal{O}(G^{10})$ for partial waves $\ell = 0, 1, 2$, including the tidal response kept symbolic in the Wilson coefficients $c_{\ell,n}$.
+In the effective field theory (EFT) description of compact binary inspirals, the radiated gravitational waveform receives universal corrections from the gravitational background — the so-called "tail" effects — that resum into the Sommerfeld factor. This repository provides the perturbative data for the gravitational Sommerfeld enhancement factor for scalar perturbations of a generic compact object, computed to $\mathcal{O}(G^{10})$ for partial waves $\ell = 0, 1, 2$, including the tidal response kept symbolic in the Wilson coefficients $c_{\ell,n}$.
 
 ## Files
 
@@ -47,7 +47,7 @@ and the Wilson coefficients $c_{\ell,n}$ appear symbolically as `c[l, n]` in the
 | Symbol | Definition |
 |--------|------------|
 | $x$ | $GM\omega$ with $M = 1$ |
-| $L$ | $\log(4\omega^2/\bar{\mu}^2)$, where $\bar{\mu}^2 = 4\pi\, e^{-\gamma_E}\,\mu_0^2$ (MS-bar) |
+| $L$ | $\log(4\omega^2/\bar{\mu}^2)$, where $\bar{\mu}^2 = 4\pi\, e^{-\gamma_E}\,\mu_0^2$ |
 | $L_{\mathrm{IR}}$ | $\log(4\omega^2/\bar{\mu}_{\mathrm{IR}}^2)$, where $\bar{\mu}_{\mathrm{IR}}^2 = 4\pi\, e^{\gamma_E - 1}\,\mu_{\mathrm{IR}}^2$ |
 
 These follow the conventions in the Supplemental Material of the paper (Sec. VII).
