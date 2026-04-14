@@ -1,22 +1,26 @@
-# Sommerfeld Factor Data
+# Ancillary Data
 
 Ancillary data for the paper:
 
-> **Gravitational Sommerfeld Factor for Scalar Perturbations with Tidal Effects**
+> **Gravitational Sommerfeld Effects: Formalism, Renormalization, and Perturbation to $\mathcal{O}(G^{10})$**
+>
+> Chih-Hao Chang, Chia-Hsien Shen, Zihan Zhou
 
-This repository provides high-precision perturbative data for the gravitational Sommerfeld enhancement factor $\mathcal{S}_\ell$ for scalar scattering off a Schwarzschild black hole, computed to $\mathcal{O}(G^{10})$ for partial waves $\ell = 0, 1, 2$.
+## Overview
+
+In the effective field theory (EFT) description of compact binary inspirals, the radiated gravitational waveform receives universal corrections from the gravitational background — the so-called "tail" effects — that resum into the Sommerfeld factor. This repository provides the perturbative data for the gravitational Sommerfeld enhancement factor for scalar perturbations of a Schwarzschild black hole, computed to $\mathcal{O}(G^{10})$ for partial waves $\ell = 0, 1, 2$, including the tidal response kept symbolic in the Wilson coefficients $c_{\ell,n}$.
 
 ## Files
 
-| File | Partial wave | Description |
-|------|:---:|-------------|
-| `l0Data.m` | $\ell = 0$ | Sommerfeld factor data |
-| `l1Data.m` | $\ell = 1$ | Sommerfeld factor data |
-| `l2Data.m` | $\ell = 2$ | Sommerfeld factor data |
+| File | Partial wave |
+|------|:---:|
+| `l0Data.m` | $\ell = 0$ |
+| `l1Data.m` | $\ell = 1$ |
+| `l2Data.m` | $\ell = 2$ |
 
 ## Data Format
 
-Each file is a Mathematica `Association` that can be loaded with
+Each file is a Mathematica `Association` loadable via
 
 ```mathematica
 data = Get["l1Data.m"];
@@ -24,22 +28,29 @@ data = Get["l1Data.m"];
 
 The keys are:
 
-| Key | Description |
-|-----|-------------|
-| `"|S|"` | Magnitude $\|\mathcal{S}_\ell\|$ as a list of coefficients in $x = G M \omega$, expanded in the paper variables $L = \log(4\omega^2/\bar\mu^2)$ |
-| `"Arg[S]"` | Phase $\arg\mathcal{S}_\ell$ (same expansion) |
-| `"phaseShift"` | Scattering phase shift $\delta_\ell$ (same expansion); equals $\arg\mathcal{S}_\ell$ when the tidal response is conservative |
-| `"|Srem|"` | Resummation remainder $\|\mathcal{S}_{\rm rem}\|$ after factoring out $\|\mathcal{S}_{\rm IR}\|\,\|\mathcal{S}_{\rm run}\|$ |
-| `"\[Gamma]"` | Anomalous dimension matrix $\gamma$ for the radiative multipole / tidal system |
+| Key | Symbol | Description |
+|-----|--------|-------------|
+| `"\|S\|"` | $\|\mathcal{S}_\ell\|$ | Magnitude of the Sommerfeld factor |
+| `"Arg[S]"` | $\mathrm{Arg}\,\mathcal{S}_\ell$ | Phase of the Sommerfeld factor |
+| `"phaseShift"` | $\delta_\ell$ | Scattering phase shift; equals $\mathrm{Arg}\,\mathcal{S}_\ell$ when the tidal response is conservative |
+| `"\|Srem\|"` | $\|\mathcal{S}_{\mathrm{rem}}\|$ | Resummation remainder after factoring out $\|\mathcal{S}_{\mathrm{IR}}\|\,\|\mathcal{S}_{\mathrm{run}}\|$ |
+| `"\[Gamma]"` | $\gamma$ | Anomalous dimension matrix for the radiative multipole / tidal system |
 
-Each entry is a list of coefficients `{c0, c1, c2, ...}` where `c_k` is the coefficient of $x^k$ (i.e., $G^k$ after the substitution $G \to x/\omega$).
+Each entry (except `"\[Gamma]"`) is a list `{c0, c1, c2, ...}` where `ck` is the coefficient of $x^k$ in the expansion parameter $x = G M \omega$.
+
+The tidal response function is parameterized as
+$$\bar{F}_{\ell,0}(\omega) = (GM)^{2\ell+1} \sum_{n=0}^{\infty} c_{\ell,n}(\mu_0)\,(i\,GM\omega)^n$$
+and the Wilson coefficients $c_{\ell,n}$ appear symbolically as `c[l, n]` in the data.
 
 ## Conventions
 
-- $x = G M \omega$ with $M = 1$.
-- $L = \log(4\omega^2/\bar\mu^2)$ where $\bar\mu^2 = 4\pi\, e^{-\gamma_E}\, \mu^2$ (MS-bar scheme).
-- $L_{\rm IR} = \log(4\omega^2/\mu_{\rm IR}^2)$ (raw IR scale, not MS-bar).
-- Wilson coefficients of the tidal response $F_\ell(\omega) = G^{2\ell+1}\sum_n c_{\ell,n}\,(i G\omega)^n$ are denoted `c[l, n]` in the data files.
+| Symbol | Definition |
+|--------|------------|
+| $x$ | $GM\omega$ with $M = 1$ |
+| $L$ | $\log(4\omega^2/\bar{\mu}^2)$, where $\bar{\mu}^2 = 4\pi\, e^{-\gamma_E}\,\mu_0^2$ (MS-bar) |
+| $L_{\mathrm{IR}}$ | $\log(4\omega^2/\bar{\mu}_{\mathrm{IR}}^2)$, where $\bar{\mu}_{\mathrm{IR}}^2 = 4\pi\, e^{\gamma_E - 1}\,\mu_{\mathrm{IR}}^2$ |
+
+These follow the conventions in the Supplemental Material of the paper (Sec. VII).
 
 ## Usage Example
 
@@ -48,11 +59,11 @@ data = Get["l1Data.m"];
 
 (* Magnitude of the Sommerfeld factor at O(x^2) for l=1 *)
 data["|S|"][[3]]
-(* Output: 413/50 - (19 L)/15 + Pi^2/6 *)
+(* 413/50 - (19 L)/15 + Pi^2/6 *)
 
 (* Phase shift at O(x^1) for l=1 *)
 data["phaseShift"][[2]]
-(* Output: -3 + 2 EulerGamma + LIR *)
+(* -3 + 2 EulerGamma + LIR *)
 ```
 
 ## Citation
